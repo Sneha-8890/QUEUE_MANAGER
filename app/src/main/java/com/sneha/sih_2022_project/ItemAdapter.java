@@ -32,9 +32,8 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.Itemname.setText(list.get(position).getName());
-        holder.Itemprice.setText(list.get(position).getPrice());
-        holder.img.setImageResource(list.get(position).getImage());
+        holder.Itemname.setText(list.get(position).getProd_name());
+        holder.Itemprice.setText(list.get(position).getProd_price());
         holder.textquantity.setText(list.get(position).getQty());
     }
 
@@ -57,7 +56,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
             Itemname = itemView.findViewById(R.id.item_name);
             Itemprice = itemView.findViewById(R.id.item_price);
-            img = itemView.findViewById(R.id.itemimage);
             textquantity = itemView.findViewById(R.id.item_qty);
 
 

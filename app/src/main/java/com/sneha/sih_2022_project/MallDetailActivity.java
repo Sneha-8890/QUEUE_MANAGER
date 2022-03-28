@@ -16,15 +16,20 @@ import android.view.Menu;
 import android.widget.Button;
 import android.widget.SearchView;
 
+import java.util.ArrayList;
+
 public class MallDetailActivity extends AppCompatActivity {
 
     Button btn;
     public static final int CAMERA_REQUEST_PERMISSION =1;
     public static final int CAMERA_IMAGE_CODE=2;
+    ArrayList<String> product_ids;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mall_detail);
+
+        product_ids = new ArrayList<>();
 
         btn = findViewById(R.id.qr_scan);
         btn.setOnClickListener(v-> startScanning());
@@ -63,7 +68,7 @@ public class MallDetailActivity extends AppCompatActivity {
         if(requestCode == CAMERA_IMAGE_CODE){
             if(resultCode == RESULT_OK) {
                 String product_id = data.getStringExtra("scanning_result");
-
+                product_ids.add(product_id);
             }
         }
     }

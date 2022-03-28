@@ -1,22 +1,39 @@
 package com.sneha.sih_2022_project;
 
 public class ItemModel {
-    private String name;
-    private int qty, price, image;
+    private String prod_id, prod_name, prod_price;
+    private int qty;
 
-    public ItemModel(String name, int qty, int price, int image) {
-        this.name = name;
-        this.qty = qty;
-        this.price = price;
-        this.image = image;
+    ItemModel(){}
+
+    public ItemModel(String prod_id, String prod_name, String prod_price) {
+        this.prod_id = prod_id;
+        this.prod_name = prod_name;
+        this.prod_price = prod_price;
     }
 
-    public String getName() {
-        return name;
+    public String getProd_id() {
+        return prod_id;
     }
 
-    public void setName(String name) {
-        this.name = name;
+    public void setProd_id(String prod_id) {
+        this.prod_id = prod_id;
+    }
+
+    public String getProd_name() {
+        return prod_name;
+    }
+
+    public void setProd_name(String prod_name) {
+        this.prod_name = prod_name;
+    }
+
+    public String getProd_price() {
+        return prod_price;
+    }
+
+    public void setProd_price(String prod_price) {
+        this.prod_price = prod_price;
     }
 
     public int getQty() {
@@ -25,21 +42,5 @@ public class ItemModel {
 
     public void setQty(int qty) {
         this.qty = qty;
-    }
-
-    public int getPrice() {
-        return price;
-    }
-
-    public void setPrice(int price) {
-        this.price = price;
-    }
-
-    public int getImage() {
-        return image;
-    }
-
-    public void setImage(int image) {
-        this.image = image;
     }
 }
