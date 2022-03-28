@@ -47,7 +47,6 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
 
 
         TextView Itemname, Itemprice;
-       ImageView img;
        EditText textquantity;
 
 
