@@ -49,6 +49,8 @@ public class MainActivity extends AppCompatActivity {
             isSignUp = true;
             confirmpasswordLayout.setVisibility(View.GONE);
             login.setBackground(getResources().getDrawable(R.drawable.text_selected));
+            login.setTextColor(getResources().getColor(R.color.white));
+            signup.setTextColor(getResources().getColor(R.color.black));
             signup.setBackground(getResources().getDrawable(R.drawable.text_unselelcted));
             action.setText("Log In");
         });
@@ -56,6 +58,8 @@ public class MainActivity extends AppCompatActivity {
         signup.setOnClickListener(v-> {
             isSignUp=false;
             confirmpasswordLayout.setVisibility(View.VISIBLE);
+            login.setTextColor(getResources().getColor(R.color.black));
+            signup.setTextColor(getResources().getColor(R.color.white));
             signup.setBackground(getResources().getDrawable(R.drawable.text_selected));
             login.setBackground(getResources().getDrawable(R.drawable.text_unselelcted));
             action.setText("Sign Up");
