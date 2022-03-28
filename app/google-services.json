@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "756002026591",
+    "project_id": "pingintelligence-73ede",
+    "storage_bucket": "pingintelligence-73ede.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:756002026591:android:0ea8033db9024996f697ea",
+        "android_client_info": {
+          "package_name": "com.sneha.sih_2022_project"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "756002026591-cdmdfkil7ec126ohh78409r6kniqdp1e.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAR2a4Q8IOI6TgKn59dRCTjWDTD61DFwSU"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "756002026591-cdmdfkil7ec126ohh78409r6kniqdp1e.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

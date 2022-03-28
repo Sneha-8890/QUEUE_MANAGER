@@ -1,0 +1,11 @@
+<resources>
+    <string name="app_name">SIH_2022_PROJECT</string>
+
+    <string-array name="set_location">
+
+        <item>Roorkee</item>
+        <item>Dehradun</item>
+        <item>Haridwar</item>
+    </string-array>
+
+</resources>
