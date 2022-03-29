@@ -12,8 +12,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.SIH_2022_PROJECT">
-        <activity android:name=".ScanningActivity"></activity>
-        <activity android:name=".MallDetailActivity"></activity>
+        <activity android:name=".FinalActivity"></activity>
+        <activity android:name=".ScanningActivity" />
+        <activity android:name=".MallDetailActivity" />
         <activity android:name=".SelectLocation" />
         <activity android:name=".MainActivity">
             <intent-filter>

@@ -7,17 +7,19 @@
     tools:context=".SelectLocation">
 
         <Spinner
+            android:gravity="center"
             android:id="@+id/spinner"
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="50dp"
+            android:textAlignment="center"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/mart_recycler"
-            android:layout_width="match_parent"
-            android:layout_height="705dp"
+            android:layout_width="422dp"
+            android:layout_height="548dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.494"

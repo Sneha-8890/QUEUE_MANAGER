@@ -8,4 +8,6 @@
         android:iconTint="@color/white"
         android:title="search" />
 
+    <item android:id="@+id/logout" android:title="Log Out" app:showAsAction="always"/>
+
 </menu>

@@ -18,11 +18,10 @@ import com.google.firebase.database.FirebaseDatabase;
 public class MainActivity extends AppCompatActivity {
 
     TextView login, signup;
-    TextInputEditText email, password;
+    TextInputEditText email, password, confirm;
     Button action;
     TextInputLayout confirmpasswordLayout;
-
-    Boolean isSignUp = true;
+    private boolean isSigningUp = true;
 
 
     @Override
@@ -35,8 +34,8 @@ public class MainActivity extends AppCompatActivity {
 
         email = findViewById(R.id.email);
         password = findViewById(R.id.password);
-        //confirmPassword = findViewById(R.id.confirmpassword);
-        confirmpasswordLayout = findViewById(R.id.condirmPassword);
+        confirm = findViewById(R.id.confirmPasswordText);
+        confirmpasswordLayout = findViewById(R.id.confirmPassword);
 
         action = findViewById(R.id.action);
 
@@ -46,17 +45,19 @@ public class MainActivity extends AppCompatActivity {
         }
 
         login.setOnClickListener(v-> {
-            isSignUp = true;
+            if(isSigningUp){
+                isSigningUp=false;
+            }
             confirmpasswordLayout.setVisibility(View.GONE);
-            login.setBackground(getResources().getDrawable(R.drawable.text_selected));
             login.setTextColor(getResources().getColor(R.color.white));
             signup.setTextColor(getResources().getColor(R.color.black));
             signup.setBackground(getResources().getDrawable(R.drawable.text_unselelcted));
-            action.setText("Log In");
+            login.setBackground(getResources().getDrawable(R.drawable.text_selected));
+            action.setText("Sign Up");
         });
 
         signup.setOnClickListener(v-> {
-            isSignUp=false;
+            if(!isSigningUp) isSigningUp= true;
             confirmpasswordLayout.setVisibility(View.VISIBLE);
             login.setTextColor(getResources().getColor(R.color.black));
             signup.setTextColor(getResources().getColor(R.color.white));
@@ -68,7 +69,14 @@ public class MainActivity extends AppCompatActivity {
 
 
         action.setOnClickListener(v-> {
-            if (isSignUp){
+            if (email.getText().toString().isEmpty() || password.getText().toString().isEmpty()){
+                if (isSigningUp && confirm.getText().toString().isEmpty()){
+                    Toast.makeText(MainActivity.this, "Invalid input", Toast.LENGTH_SHORT).show();
+                    return;
+                }
+            }
+
+            if (isSigningUp){
                 handleSignUp();
             }else {
                 handleLogin();
