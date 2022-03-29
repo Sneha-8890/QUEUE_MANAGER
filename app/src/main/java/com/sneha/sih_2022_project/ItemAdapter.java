@@ -33,7 +33,7 @@ public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder
     @Override
     public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
         holder.Itemname.setText(list.get(position).getProd_name());
-        holder.Itemprice.setText(list.get(position).getProd_price());
+        holder.Itemprice.setText(String.valueOf(list.get(position).getProd_price()));
     }
 
     @Override

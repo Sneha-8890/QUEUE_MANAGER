@@ -1,23 +1,23 @@
 package com.sneha.sih_2022_project;
 
 public class ItemModel {
-    private String prod_id, prod_name, prod_price;
+    private String prod_url, prod_name, prod_price;
     private int qty;
 
     ItemModel(){}
 
-    public ItemModel(String prod_id, String prod_name, String prod_price) {
-        this.prod_id = prod_id;
+    public ItemModel(String prod_name, String prod_price, String prod_url) {
+        this.prod_url = prod_url;
         this.prod_name = prod_name;
         this.prod_price = prod_price;
     }
 
-    public String getProd_id() {
-        return prod_id;
+    public String getProd_url() {
+        return prod_url;
     }
 
-    public void setProd_id(String prod_id) {
-        this.prod_id = prod_id;
+    public void setProd_url(String prod_id) {
+        this.prod_url = prod_id;
     }
 
     public String getProd_name() {
