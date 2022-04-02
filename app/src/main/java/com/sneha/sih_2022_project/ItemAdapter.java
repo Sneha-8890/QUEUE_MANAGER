@@ -11,53 +11,50 @@ import android.widget.TextView;
 import androidx.annotation.NonNull;
 import androidx.recyclerview.widget.RecyclerView;
 
+import com.google.firebase.firestore.FirebaseFirestore;
+
 import java.util.ArrayList;
 
-public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.ItemViewHolder> {
+public class ItemAdapter extends RecyclerView.Adapter<ItemAdapter.MyViewHolder>{
 
-    ArrayList<ItemModel>list; Context context;
+    Context context;
+    ArrayList<ItemModel> list;
 
-    public ItemAdapter(ArrayList<ItemModel> list, Context context) {
-        this.list = list;
+    public ItemAdapter(Context context, ArrayList<ItemModel> list) {
         this.context = context;
+        this.list = list;
     }
 
     @NonNull
     @Override
-    public ItemViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
-        View view = LayoutInflater.from(context).inflate(R.layout.item_holder,parent,false);
-        return new ItemViewHolder(view);
-
+    public ItemAdapter.MyViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
+        View view = LayoutInflater.from(context).inflate(R.layout.item_holder, parent, false);
+        return new MyViewHolder(view);
     }
 
     @Override
-    public void onBindViewHolder(@NonNull ItemViewHolder holder, int position) {
-        holder.Itemname.setText(list.get(position).getProd_name());
-        holder.Itemprice.setText(String.valueOf(list.get(position).getProd_price()));
+    public void onBindViewHolder(@NonNull ItemAdapter.MyViewHolder holder, int position) {
+        ItemModel model = list.get(position);
+
+        holder.item_name.setText(model.getProd_name());
+        holder.item_price.setText(String.valueOf(model.getProd_price()));
     }
 
     @Override
     public int getItemCount() {
-
         return list.size();
     }
 
-    class ItemViewHolder extends RecyclerView.ViewHolder{
+    public static class MyViewHolder extends RecyclerView.ViewHolder{
 
+        TextView item_name, item_price;
 
-        TextView Itemname, Itemprice, qty;
-       EditText textquantity;
+        public MyViewHolder(@NonNull View itemView) {
 
-
-        public ItemViewHolder(@NonNull View itemView) {
             super(itemView);
-
-            Itemname = itemView.findViewById(R.id.item_name);
-            Itemprice = itemView.findViewById(R.id.item_price);
-            qty = itemView.findViewById(R.id.qty_text);
-            textquantity = itemView.findViewById(R.id.item_qty);
-
-
+            item_name = itemView.findViewById(R.id.item_name);
+            item_price = itemView.findViewById(R.id.item_price);
         }
     }
+
 }

@@ -3,10 +3,12 @@ package com.sneha.sih_2022_project;
 import androidx.annotation.NonNull;
 import androidx.annotation.Nullable;
 import androidx.appcompat.app.AppCompatActivity;
+import androidx.cardview.widget.CardView;
 import androidx.recyclerview.widget.LinearLayoutManager;
 import androidx.recyclerview.widget.RecyclerView;
 
 import android.Manifest;
+import android.app.ProgressDialog;
 import android.app.SearchManager;
 import android.content.Context;
 import android.content.Intent;
@@ -15,8 +17,11 @@ import android.os.Build;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
+import android.view.View;
 import android.widget.Button;
+import android.widget.EditText;
 import android.widget.SearchView;
+import android.widget.TextView;
 
 import com.google.firebase.firestore.DocumentChange;
 import com.google.firebase.firestore.EventListener;
@@ -33,20 +38,26 @@ public class MallDetailActivity extends AppCompatActivity {
     public static final int CAMERA_IMAGE_CODE=2;
     ArrayList<String> product_ids;
     Button payBill;
+
+    RecyclerView recyclerView;
+    ItemAdapter itemAdapter;
     FirebaseFirestore db;
-    RecyclerView detailrecycler;
-    ItemAdapter myadapter;
-    ArrayList<ItemModel> userArrayList;
+    ArrayList<ItemModel> list;
+    ProgressDialog progressDialog;
+
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_mall_detail);
 
-        product_ids = new ArrayList<>();
-        userArrayList = new ArrayList<>();
+        progressDialog = new ProgressDialog(this);
+        progressDialog.setCancelable(false);
+        progressDialog.setMessage("Fetching Data");
+        progressDialog.show();
 
-        detailrecycler = findViewById(R.id.recyclerViewDetail);
+        product_ids = new ArrayList<>();
 
         btn = findViewById(R.id.qr_scan);
         btn.setOnClickListener(v-> startScanning());
@@ -58,6 +69,39 @@ public class MallDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
+        recyclerView = findViewById(R.id.recyclerViewDetail);
+        recyclerView.setHasFixedSize(true);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+
+        db = FirebaseFirestore.getInstance();
+        list = new ArrayList<>();
+        itemAdapter = new ItemAdapter(MallDetailActivity.this, list);
+
+        EventChangeListener();
+    }
+
+    private void EventChangeListener() {
+
+        db.collection("products")
+                .addSnapshotListener(new EventListener<QuerySnapshot>() {
+                    @Override
+                    public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
+
+                        if(error!=null){
+                            if(progressDialog.isShowing()) progressDialog.dismiss();
+                            Log.e("FireStore error", error.getMessage());
+                            return;
+                        }
+                        for(DocumentChange dc : value.getDocumentChanges()){
+                            if(dc.getType() == DocumentChange.Type.ADDED){
+                                list.add(dc.getDocument().toObject(ItemModel.class));
+                            }
+                        }
+
+                        itemAdapter.notifyDataSetChanged();
+                        if(progressDialog.isShowing()) progressDialog.dismiss();
+                    }
+                });
     }
 
     private void startScanning(){
@@ -93,42 +137,9 @@ public class MallDetailActivity extends AppCompatActivity {
             if(resultCode == RESULT_OK) {
                 String product_id = data.getStringExtra("scanning_result");
                 product_ids.add(product_id);
-                updateList(product_ids);
+
             }
         }
-    }
-
-    private void updateList(ArrayList<String> product_ids) {
-
-        userArrayList.clear();
-
-        db = FirebaseFirestore.getInstance();
-
-        myadapter = new ItemAdapter(userArrayList, MallDetailActivity.this);
-
-        db.collection("products").addSnapshotListener(new EventListener<QuerySnapshot>() {
-            @Override
-            public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
-                if(error!=null){
-                    Log.e("FireStore error", error.getLocalizedMessage());
-                    return;
-                }
-
-                for(DocumentChange dc : value.getDocumentChanges()){
-                    if(dc.getType() == DocumentChange.Type.ADDED){
-                        userArrayList.add(dc.getDocument().toObject(ItemModel.class));
-                    }
-                }
-
-            }
-
-        });
-
-        detailrecycler.setLayoutManager(new LinearLayoutManager(MallDetailActivity.this));
-        detailrecycler.setAdapter(myadapter);
-
-        myadapter.notifyDataSetChanged();
     }
 
 
