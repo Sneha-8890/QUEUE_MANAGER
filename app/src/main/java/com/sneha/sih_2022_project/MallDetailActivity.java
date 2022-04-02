@@ -72,6 +72,7 @@ public class MallDetailActivity extends AppCompatActivity {
         recyclerView = findViewById(R.id.recyclerViewDetail);
         recyclerView.setHasFixedSize(true);
         recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setAdapter(itemAdapter);
 
         db = FirebaseFirestore.getInstance();
         list = new ArrayList<>();
