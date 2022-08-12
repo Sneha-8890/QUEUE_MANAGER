@@ -69,10 +69,7 @@ public class MallDetailActivity extends AppCompatActivity {
             startActivity(intent);
         });
 
-        recyclerView = findViewById(R.id.recyclerViewDetail);
-        recyclerView.setHasFixedSize(true);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
-        recyclerView.setAdapter(itemAdapter);
+
 
         db = FirebaseFirestore.getInstance();
         list = new ArrayList<>();
@@ -87,22 +84,24 @@ public class MallDetailActivity extends AppCompatActivity {
                 .addSnapshotListener(new EventListener<QuerySnapshot>() {
                     @Override
                     public void onEvent(@Nullable QuerySnapshot value, @Nullable FirebaseFirestoreException error) {
-
                         if(error!=null){
                             if(progressDialog.isShowing()) progressDialog.dismiss();
                             Log.e("FireStore error", error.getMessage());
                             return;
                         }
-                        for(DocumentChange dc : value.getDocumentChanges()){
-                            if(dc.getType() == DocumentChange.Type.ADDED){
-                                list.add(dc.getDocument().toObject(ItemModel.class));
-                            }
-                        }
 
+                        for(DocumentChange dc : value.getDocumentChanges()){
+                            list.add(dc.getDocument().toObject(ItemModel.class));
+                        }
+                        for(int i=0; i<list.size(); i++) Log.v("List", list.get(i).prod_name+" "+list.get(i).prod_price);
                         itemAdapter.notifyDataSetChanged();
                         if(progressDialog.isShowing()) progressDialog.dismiss();
                     }
+
                 });
+        recyclerView = findViewById(R.id.recyclerViewDetail);
+        recyclerView.setAdapter(itemAdapter);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this));
     }
 
     private void startScanning(){
